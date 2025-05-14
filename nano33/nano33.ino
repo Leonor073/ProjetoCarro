@@ -36,17 +36,17 @@ void setup() {
   Serial.print(IMU.accelerationSampleRate());
   Serial.println(" Hz");
   
-  // // Connect to ESP32 AP
-  // Serial.println("Connecting to ESP32 Access Point...");
-  // while (WiFi.begin(ssid, password) != WL_CONNECTED) {
-  //   delay(1000);
-  //   Serial.print(".");
-  // }
+ // Connect to ESP32 AP
+   Serial.println("Connecting to ESP32 Access Point...");
+   while (WiFi.begin(ssid, password) != WL_CONNECTED) {
+   delay(1000);
+   Serial.print(".");
+  }
   
-  // Serial.println("\nConnected to ESP32!");
-  // Serial.println("Nano 33 IoT IP: " + WiFi.localIP().toString());
+   Serial.println("\nConnected to ESP32!");
+  Serial.println("Nano 33 IoT IP: " + WiFi.localIP().toString());
   
-  // connectToServer();
+   connectToServer();
 }
 
 void connectToServer() {
@@ -75,28 +75,28 @@ void connectToServer() {
 }
 
 void loop() {
-    // // Check if WiFi is still connected
-    // if (WiFi.status() != WL_CONNECTED) {
-    //   Serial.println("WiFi connection lost. Reconnecting...");
-    //   WiFi.begin(ssid, password);
-    //   delay(1000);
-    //   return;
-    // }
+     // Check if WiFi is still connected
+     if (WiFi.status() != WL_CONNECTED) {
+       Serial.println("WiFi connection lost. Reconnecting...");
+       WiFi.begin(ssid, password);
+       delay(1000);
+       return;
+     }
 
-    // // Check if server connection is still active
-    // if (!client.connected()) {
-    //   Serial.println("Server connection lost. Reconnecting...");
-    //   serverConnected = false;
-    //   client.stop();
-    //   connectToServer();
-    //   return;
-    // }
+     // Check if server connection is still active
+     if (!client.connected()) {
+       Serial.println("Server connection lost. Reconnecting...");
+       serverConnected = false;
+       client.stop();
+       connectToServer();
+       return;
+     }
 
     // Check for server messages
-    // if (client.available()) {
-    //   String response = client.readStringUntil('\n');
-    //   Serial.println("Server says: " + response);
-    // }
+     if (client.available()) {
+       String response = client.readStringUntil('\n');
+       Serial.println("Server says: " + response);
+     }
 
     // Send accelerometer data at regular intervals
     unsigned long currentTime = millis();
@@ -132,7 +132,7 @@ void loop() {
                     Serial.print("Tilting up ");
                     Serial.print(degreesX);
                     Serial.println(" degrees");
-                // client.println("F");
+                    client.println("F");
                     dataSent = true;
                 }
                 
@@ -142,7 +142,7 @@ void loop() {
                     Serial.print("Tilting down ");
                     Serial.print(degreesX);
                     Serial.println(" degrees");
-                    //client.println("T");
+                    client.println("T");
                     dataSent = true;
                 }
                 
@@ -152,7 +152,7 @@ void loop() {
                     Serial.print("Tilting left ");
                     Serial.print(degreesY);
                     Serial.println(" degrees");
-                    //client.println("E");
+                    client.println("E");
                     dataSent = true;
                 }
                 
@@ -162,14 +162,14 @@ void loop() {
                     Serial.print("Tilting right ");
                     Serial.print(degreesY);
                     Serial.println(" degrees");
-                    //client.println("D");
+                    client.println("D");
                     dataSent = true;
                 }
                 
                 // Envio de uma mensagem para manter a coneccao aberta
-                // if (!dataSent) {
-                //   client.println("KeepAlive\n");
-                // }
+                 if (!dataSent) {
+                   client.println("KeepAlive\n");
+                 }
                 counter = 1;
                 xSum = 0;
                 ySum = 0;        

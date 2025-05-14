@@ -19,13 +19,13 @@ WiFiClient client;
 bool clientConnected = false;
 
 // Pinos do Motor A (Motor Esquerdo)
-const int motorA_IN1 = 27;
+const int motorA_IN1 = 33;
 const int motorA_IN2 = 26;
-const int motorA_ENA = 14; // PWM para controle de velocidade
+const int motorA_ENA = 35; // PWM para controle de velocidade
 
 // Pinos do Motor B (Motor Direito)
-const int motorB_IN3 = 25;
-const int motorB_IN4 = 33;
+const int motorB_IN3 = 27;
+const int motorB_IN4 = 14;
 const int motorB_ENB = 32; // PWM para controle de velocidade
 
 // Configurações PWM
