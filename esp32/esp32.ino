@@ -7,6 +7,7 @@ void moverFrente();
 void moverTras();
 void moverEsquerda();
 void moverDireita();
+void stopMovement();
 void ajustarVelocidade(int novaVelocidade);
 
 // AP credentials
@@ -109,9 +110,10 @@ void loop() {
         Serial.println("Received greeting");
         client.println("ESP32 acknowledges your greeting");
       }
-      else if(command.startsWith("KeepAlive")){
+      else if(command.startsWith("Stop")){
         Serial.println("Received keep alive packege");
         client.println("ESP32 acknowledges connection");
+        stopMovement();
       }
       else{
         Serial.println("Unknown command: " + command);
@@ -184,6 +186,20 @@ void moverDireita() {
     ledcWrite(motorB_ENB, velocidade);
 
     Serial.println("Direita");
+}
+
+void stopMovement() {
+    // Motor Esquerdo - Parado
+    digitalWrite(motorA_IN1, LOW);
+    digitalWrite(motorA_IN2, LOW);
+    ledcWrite(motorA_ENA, 0);
+
+    // Motor Direito - Parado
+    digitalWrite(motorB_IN3, LOW);
+    digitalWrite(motorB_IN4, LOW);
+    ledcWrite(motorB_ENB, 0);
+
+    Serial.println("Stop");
 }
 
 void ajustarVelocidade(int novaVelocidade) {

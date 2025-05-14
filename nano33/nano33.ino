@@ -168,7 +168,7 @@ void loop() {
                 
                 // Envio de uma mensagem para manter a coneccao aberta
                  if (!dataSent) {
-                   client.println("KeepAlive\n");
+                   client.println("Stop\n");
                  }
                 counter = 1;
                 xSum = 0;
